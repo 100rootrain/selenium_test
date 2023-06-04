@@ -63,6 +63,7 @@ public class SeleniumTest {
             //get page (= 브라우저에서 url을 주소창에 넣은 후 request 한 것과 같다)
             driver.get(base_url);
 
+            //새로운 탭열기
             String currentHandle = driver.getWindowHandle();
             ((JavascriptExecutor) driver).executeScript("window.open();");
 
@@ -76,6 +77,7 @@ public class SeleniumTest {
                     break;
                 }
             }
+
             //현재탭으로 돌아가기
             driver.switchTo().window(currentHandle);
 
@@ -126,7 +128,8 @@ public class SeleniumTest {
             // 원하는 작업 수행
             // 예시: 데이터 수집 등
 
-            long durationInMillis = 5000; // 5초
+            //long durationInMillis = 5000; // 5초
+            long durationInMillis = 3600000; // 3600초
             long endTime = System.currentTimeMillis() + durationInMillis;
 
             while (System.currentTimeMillis() < endTime) {
