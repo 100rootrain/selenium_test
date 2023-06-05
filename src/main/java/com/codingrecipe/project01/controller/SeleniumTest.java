@@ -29,7 +29,7 @@ public class SeleniumTest {
 
     //Properties
     public static final String WEB_DRIVER_ID = "webdriver.chrome.driver";
-    public static final String WEB_DRIVER_PATH = "C:/Users/qoreh/git/KeunWooRepository/m/src/main/webapp/resources/selenium/chromedriver_win32/chromedriver.exe";
+    public static final String WEB_DRIVER_PATH = "chromedriver.exe경로";
 
     //크롤링 할 URL
     private String base_url;
@@ -128,8 +128,8 @@ public class SeleniumTest {
             // 원하는 작업 수행
             // 예시: 데이터 수집 등
 
-            //long durationInMillis = 5000; // 5초
-            long durationInMillis = 3600000; // 3600초
+            long durationInMillis = 50000; // 50초
+//            long durationInMillis = 3600000; // 3600초
             long endTime = System.currentTimeMillis() + durationInMillis;
 
             while (System.currentTimeMillis() < endTime) {
