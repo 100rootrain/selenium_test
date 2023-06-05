@@ -172,6 +172,7 @@ public class SeleniumTest {
                 errorPageCheck: try{
                     //오류페이지일경우 try문을 벗어나 for문 처음으로 돌아간다.
                     if (driver.findElement(By.xpath("//*[@class='ico_error ico_quotation']")).isDisplayed()) {
+                        log.info("페이지가 존재하지 않습니다.");
                         continue;
                     }
                 }catch(Exception e){
