@@ -168,28 +168,44 @@ public class SeleniumTest {
 
                 Thread.sleep(1000); // 1초 대기
 
-                // _btnLike 요소 찾기 시도
-                WebElement btnLike = driver.findElement(By.className("_btnLike"));
-                if(btnLike.equals(null)){
-                    continue;
+                //오류페이지 여부확인
+                errorPageCheck: try{
+                    //오류페이지일경우 try문을 벗어나 for문 처음으로 돌아간다.
+                    if (driver.findElement(By.xpath("//*[@class='ico_error ico_quotation']")).isDisplayed()) {
+                        continue;
+                    }
+                }catch(Exception e){
+                    //오류페이지일경우 catch문을 벗어나 다음 try문으로 간다
+                    break errorPageCheck;
                 }
 
-                try {
+
+                goodCheck:try {
+                    //좋아요 여부확인
                     WebElement bnLike = driver.findElement(By.className("bn_like"));
                     String style = bnLike.getAttribute("style");
                     if(style != null && style.contains("inline")){
                         log.info("이미 좋아요한 게시물입니다.");
+                        continue;
                     }else{
-                        btnLike.click();
-                        log.info("btnLike 버튼을 클릭했습니다.");
+                        //좋아요 동작
+                        getGood:try{
+                            driver.findElement(By.className("_btnLike")).click();
+                            log.info("btnLike 버튼을 클릭했습니다.");
+                            continue;
+                        }catch(Exception e){
+                            log.info("bnLike 중복체크 후 게시물이 삭제되었을 가능성이 있습니다.");
+                            e.printStackTrace();
+                            break getGood;
+
+                        }
                     }
 
                 } catch (NoSuchElementException e) {
                     log.info("btnLike를 클릭할 수 없습니다. 게시물이 삭제되었을 가능성이 있습니다.");
                     e.printStackTrace();
-                    continue;
+                    break goodCheck;
                 }
-
 
 
                 Thread.sleep(1000); // 1초 대기
