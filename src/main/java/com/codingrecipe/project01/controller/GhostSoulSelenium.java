@@ -49,6 +49,7 @@ public class GhostSoulSelenium {
     private int 지천마령;
     private int 원천마령;
     private int 혈천마령;
+    private int 살천마령;
 
 
 
@@ -154,6 +155,9 @@ public class GhostSoulSelenium {
                             case "혈천마령":
                                 혈천마령++;
                                 break;
+                            case"살천마령":
+                                살천마령++;
+                                break;
                             default:
                                 // 처리할 작업이 없는 경우
                                 break;
@@ -212,10 +216,11 @@ public class GhostSoulSelenium {
                     log.info("원천마령 : "+ 원천마령);
                     log.info("지천마령 : "+ 지천마령);
                     log.info("혈천마령 : "+ 혈천마령);
+                    log.info("살천마령 : "+ 살천마령);
 
                     int totalMembers1 = 천랑무사+유협+현자+초월역사+천진격사+수라장군;
                     int totalMembers2 = 패도무사+흑영+현인+파천역사+적인표사+야차장군;
-                    int totalMembers3 = 주천마령+지천마령+혈천마령+원천마령;
+                    int totalMembers3 = 주천마령+지천마령+혈천마령+원천마령+살천마령;
                     log.info("정파인원 : " + totalMembers1 + "명");
                     log.info("사파인원 : "+ totalMembers2 + "명");
                     log.info("마교인원 : "+ totalMembers3 + "명");
