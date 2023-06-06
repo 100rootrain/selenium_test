@@ -33,7 +33,11 @@ public class SeleniumTest {
 
     //크롤링 할 URL
     private String base_url;
+
     private String targetURL;
+
+    //좋아요 개수체크
+    private int goodCnt = 0;
 
     public SeleniumTest() {
         super();
@@ -155,7 +159,7 @@ public class SeleniumTest {
 
 
 
-            for(int i=0; i<imgItems.size(); i++){
+            work:for(int i=0; i<imgItems.size(); i++){
                 WebElement element = imgItems.get(i);
 
 
@@ -181,6 +185,7 @@ public class SeleniumTest {
                 }
 
 
+
                 goodCheck:try {
                     //좋아요 여부확인
                     WebElement bnLike = driver.findElement(By.className("bn_like"));
@@ -191,7 +196,60 @@ public class SeleniumTest {
                     }else{
                         //좋아요 동작
                         getGood:try{
+/*
+                            List<WebElement> feelButtons = driver.findElements(By.cssSelector("button[data-kant-id='92']"));
+
+                            // 느낌에 해당하는 버튼들 중에서 랜덤한 인덱스 선택
+                            //<button data-kant-id="131~5"><button>
+                            int randomIndex = new Random().nextInt(feelButtons.size());
+                            log.info("feelButtons.size() : " + feelButtons.size());
+                            log.info("feelButtons.get(randomIndex) : " + feelButtons.get(randomIndex));
+
+
+
+                            actions.moveToElement( driver.findElement(By.className("_btnLike"))).perform();
+                            Thread.sleep(300);
+                            actions.moveToElement(driver.findElement(By.cssSelector("button[data-kant-id='13"+randomIndex+"']"))).perform();
+                            Thread.sleep(800);
+                            actions.moveToElement(driver.findElement(By.cssSelector("button[data-kant-id='13"+randomIndex+"']"))).click();
+                            Thread.sleep(500);
+                            String emotionButton = driver.findElement(By.cssSelector("button[data-kant-id='13"+randomIndex+"']")).findElement(By.cssSelector("span")).getAttribute("innerHTML");
+                            log.info("emotionButton : "+emotionButton);
+                            Thread.sleep(1500);
+*/
+
+
+                            //좋아요 버튼만
                             driver.findElement(By.className("_btnLike")).click();
+                            Thread.sleep(1500); // 팝업체크를 위한 딜레이, 필수
+
+
+                            //[-90009]팝업체크(이오류가 걸릴시 finally로 간다.)
+                            finalErrorCheck:try{
+                                //팝업체크
+
+                                List<WebElement> error90009 = driver.findElements(By.xpath("//div[@id='kakaoWrap']"));
+                                String error90009Style = error90009.get(0).getCssValue("overflow");
+
+                                if (error90009Style.equals("visible")) {
+                                    //log.info("정상페이지입니다");
+                                    break finalErrorCheck;
+
+                                } else if (error90009Style.equals("hidden")){
+//                                }else if(wait.until(ExpectedConditions.textToBePresentInElementValue(error90009.get(0), "hidden"))){
+                                    log.info("일시적인 오류입니다[-90009]");
+                                    log.info("Selenium을 종료합니다.");
+                                    break work;
+                                }
+
+                            }catch(Exception e){
+                                e.printStackTrace();
+                                log.info("[-90009]팝업체크 오류");
+                                break work;
+
+                            }
+
+                            ++goodCnt;
                             log.info("btnLike 버튼을 클릭했습니다.");
                             continue;
                         }catch(Exception e){
@@ -206,6 +264,7 @@ public class SeleniumTest {
                     log.info("btnLike를 클릭할 수 없습니다. 게시물이 삭제되었을 가능성이 있습니다.");
                     e.printStackTrace();
                     break goodCheck;
+
                 }
 
 
@@ -218,6 +277,8 @@ public class SeleniumTest {
 
         } finally {
             if (driver != null) {
+                log.info("좋아요한 횟수 : " + goodCnt);
+                log.info("종료시간 : " + LocalDateTime.now());
                 driver.quit();
             }
         }
