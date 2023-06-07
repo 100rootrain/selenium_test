@@ -68,14 +68,14 @@ public class InstagramSelenium {
 
             //driver.findElement(By.cssSelector("input[name='username']"))의 value값 아이디입력
             WebElement idInput = driver.findElement(By.xpath("(//input[@class='_aa4b _add6 _ac4d'])[1]"));
-            idInput.sendKeys("baekkeunwoo");
+            idInput.sendKeys("아이디");
             log.info("아이디입력");
             Thread.sleep(1000); // 1초 대기
 
             //driver.findElement(By.cssSelector("input[name='password']"))의 value값 비번입력
 
             WebElement passwordInput = driver.findElement(By.xpath("(//input[@name='password'])"));
-            passwordInput.sendKeys("!@qnpfrrmsdn7A");
+            passwordInput.sendKeys("비밀번호");
             log.info("비밀번호입력");
             Thread.sleep(1000); // 1초 대기
 
