@@ -1,4 +1,4 @@
-package com.codingrecipe.member;
+package com.codingrecipe.member.controller;
 
 import com.codingrecipe.member.dto.MemberDTO;
 import com.codingrecipe.member.service.MemberService;

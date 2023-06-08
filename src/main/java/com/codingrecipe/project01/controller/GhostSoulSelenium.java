@@ -26,7 +26,7 @@ public class GhostSoulSelenium {
     private WebDriver driver;
 
     public static final String WEB_DRIVER_ID = "webdriver.chrome.driver";
-    public static final String WEB_DRIVER_PATH = "C:\\Users\\backsung\\selenium_test\\src\\main\\resources\\selenium\\chromedriver_win32/chromedriver.exe";
+    public static final String WEB_DRIVER_PATH = "C:\\Users\\kma04\\selenium_test\\src\\main\\resources\\selenium\\chromedriver_win32/chromedriver.exe";
     //크롤링 할 URL
     private String base_url;
 
@@ -48,7 +48,7 @@ public class GhostSoulSelenium {
     private int 주천마령;
     private int 지천마령;
     private int 원천마령;
-    private int 혈천마령;
+    private int 갑천마령;//혈천마령
     private int 살천마령;
 
 
@@ -153,7 +153,7 @@ public class GhostSoulSelenium {
                                 원천마령++;
                                 break;
                             case "혈천마령":
-                                혈천마령++;
+                                갑천마령++;//혈천마령
                                 break;
                             case"살천마령":
                                 살천마령++;
@@ -215,12 +215,12 @@ public class GhostSoulSelenium {
                     log.info("주천마령 : "+ 주천마령);
                     log.info("원천마령 : "+ 원천마령);
                     log.info("지천마령 : "+ 지천마령);
-                    log.info("혈천마령 : "+ 혈천마령);
+                    log.info("혈천마령 : "+ 갑천마령);
                     log.info("살천마령 : "+ 살천마령);
 
                     int totalMembers1 = 천랑무사+유협+현자+초월역사+천진격사+수라장군;
                     int totalMembers2 = 패도무사+흑영+현인+파천역사+적인표사+야차장군;
-                    int totalMembers3 = 주천마령+지천마령+혈천마령+원천마령+살천마령;
+                    int totalMembers3 = 주천마령+지천마령+갑천마령+원천마령+살천마령;
                     log.info("정파인원 : " + totalMembers1 + "명");
                     log.info("사파인원 : "+ totalMembers2 + "명");
                     log.info("마교인원 : "+ totalMembers3 + "명");

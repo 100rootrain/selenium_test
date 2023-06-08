@@ -10,5 +10,8 @@
         <module name="project01" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="member_framework" target="11" />
+    </bytecodeTargetLevel>
   </component>
 </project>
