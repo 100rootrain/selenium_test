@@ -30,7 +30,7 @@ public class SeleniumTest {
 
     //Properties
     public static final String WEB_DRIVER_ID = "webdriver.chrome.driver";
-    public static final String WEB_DRIVER_PATH = "C:\\Users\\kma04\\selenium_test\\src\\main\\resources\\selenium\\chromedriver_win32/chromedriver.exe";
+    public static final String WEB_DRIVER_PATH = "chromedriver.exe 경로";
 
     //크롤링 할 URL
     private String base_url;
@@ -90,12 +90,12 @@ public class SeleniumTest {
 
             //loginKey--1의 value값 아이디입력
             WebElement idInput = driver.findElement(By.id("loginKey--1"));
-            idInput.sendKeys("qor0923@daum.net");
+            idInput.sendKeys("아이디");
             Thread.sleep(1000); // 1초 대기
 
             //password--2의 value값 비번입력
             WebElement passwordInput = driver.findElement(By.id("password--2"));
-            passwordInput.sendKeys("!@qnpfrrmsdn7A");
+            passwordInput.sendKeys("비밀번호");
             Thread.sleep(1000); // 1초 대기
 
             // 로그인 버튼 클릭
