@@ -1,24 +1,23 @@
 package com.codingrecipe.member.service;
 
-import com.codingrecipe.member.repository.AirpollutionRepository;
-import com.codingrecipe.member.repository.CalendarRepository;
+import com.codingrecipe.member.repository.AirPollutionRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
 public class AirPollutionService {
-    private final AirpollutionRepository airpollutionRepository;
-//    public ArrayList<HashMap<String, Object>> getLocationList() {
-//        ArrayList<HashMap<String, Object>> list = airpollutionRepository.getLocationList();
-//        return list;
-//    }
-//
-//    public ArrayList<HashMap<String, Object>> getStationList(HashMap<String, Object> map) {
-//        return airpollutionRepository.getStationList(map);
-//    }
+    private final AirPollutionRepository airPollutionRepository;
+    public List<String> getLocationList() {
+        List<String> locationList = airPollutionRepository.getLocationList();
+        return locationList;
+    }
+
+    public List<String> getStationList(String locNm) {
+        List<String> stationList =airPollutionRepository.getStationList(locNm);
+        return stationList;
+    }
 
 }

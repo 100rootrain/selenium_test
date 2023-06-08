@@ -1,6 +1,7 @@
 package com.codingrecipe.member.controller;
 
-import com.codingrecipe.member.service.CalendarService;
+import com.codingrecipe.member.service.AirPollutionService;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,31 +11,29 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
-
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
-import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
 
 @Controller
 @RestController
-@RequestMapping("/calendar")
+@RequestMapping("/airPollution")
 @RequiredArgsConstructor
 
 public class AirPollutionController {
-    private final CalendarService calendarService;
+    private final AirPollutionService airPollutionService;
     private static final Logger log = LoggerFactory.getLogger(AirPollutionController.class);
 
     @GetMapping("/airPollution")
     public String airPollution(Locale locale, Model mode) {
-//        ArrayList<HashMap<String, Object>> locationList = airPollutionService.getLocationList();
+
+        List<String> locationList = airPollutionService.getLocationList();
         return "airPollution";
     }
 
@@ -88,6 +87,13 @@ public class AirPollutionController {
         // API에서 돌려받은 값을 해시맵으로 변환
         HashMap<String, Object> map = new ObjectMapper().readValue(sb.toString(), HashMap.class);
         return map;
+    }
+
+    @GetMapping("/getStationList")
+    public List<String> getStationList(@RequestParam String locNm, Locale locale, Model model) {
+        List<String> stationList = airPollutionService.getStationList(locNm);
+        return stationList;
+
     }
 
 
