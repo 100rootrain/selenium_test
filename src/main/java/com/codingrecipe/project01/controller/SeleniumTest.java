@@ -279,7 +279,8 @@ public class SeleniumTest {
         } finally {
             if (driver != null) {
                 log.info("좋아요한 횟수 : " + goodCnt);
-                log.info("종료시간 : " + LocalDateTime.now());
+                log.info("종료시간+45분 : " + LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
+                log.info("종료시간+45분 : " + LocalDateTime.now().plusMinutes(45).format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
                 driver.quit();
             }
         }
