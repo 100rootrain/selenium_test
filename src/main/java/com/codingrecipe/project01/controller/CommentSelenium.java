@@ -1,14 +1,12 @@
 package com.codingrecipe.project01.controller;
 
-import org.jsoup.Connection;
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.select.Elements;
-import org.openqa.selenium.*;
+import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,7 +17,6 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
-import java.util.Set;
 
 public class CommentSelenium {
     private static final Logger logger = LoggerFactory.getLogger(CommentSelenium.class);
@@ -52,8 +49,11 @@ public class CommentSelenium {
 
         //Driver SetUp
         //driver = new ChromeDriver();
-        base_url = "https://accounts.kakao.com/login/?continue=https%3A%2F%2Fstory.kakao.com%2Fch%2Fsaal#login";
-
+        base_url = "https://accounts.kakao.com/login/?continue=https%3A%2F%2Fstory.kakao.com%2Fch%2F"+"thinker"+"#login";
+        //saal
+        //funnybro
+        //type4graphic
+        //thinker
 
         // Driver SetUp
         ChromeOptions options = new ChromeOptions();
@@ -100,7 +100,7 @@ public class CommentSelenium {
             // 원하는 작업 수행
             // 예시: 데이터 수집 등
 
-            long durationInMillis = 300000; // 300초
+            long durationInMillis = 100000; // 100초
 //            long durationInMillis = 3600000; // 3600초
             long endTime = System.currentTimeMillis() + durationInMillis;
 
@@ -143,7 +143,7 @@ public class CommentSelenium {
 
 
                 commentLike:while(true){
-                    Thread.sleep(2500);
+                    Thread.sleep(1500);
                     logger.info("while시작");
 
                     // 좋아요버튼
@@ -153,7 +153,33 @@ public class CommentSelenium {
                     List<WebElement> showMoreButtons = driver.findElements(By.xpath("//a[@class='_btnShowMoreComment']"));
                     logger.info("더보기버튼 갯수 :" +showMoreButtons.size());
 
-                    Thread.sleep(3000);
+                    Thread.sleep(1000);
+
+                    //[-90009]팝업체크(이오류가 걸릴시 finally로 간다.)
+                    finalErrorCheck:try{
+                        //팝업체크
+
+                        List<WebElement> error90009 = driver.findElements(By.xpath("//div[@id='kakaoWrap']"));
+                        String error90009Style = error90009.get(0).getCssValue("overflow");
+
+                        if (error90009Style.equals("visible")) {
+                            //log.info("정상페이지입니다");
+                            break finalErrorCheck;
+
+                        } else if (error90009Style.equals("hidden")){
+//                                }else if(wait.until(ExpectedConditions.textToBePresentInElementValue(error90009.get(0), "hidden"))){
+                            logger.info("일시적인 오류입니다[-90009]");
+                            logger.info("Selenium을 종료합니다.");
+                            break work;
+                        }
+
+                    }catch(Exception e){
+                        e.printStackTrace();
+                        logger.info("[-90009]팝업체크 오류");
+                        break work;
+
+                    }
+
 
 
                     //더보기버튼갯수가 0이라면 break , 스크롤 업후 좋아요누르기
@@ -185,9 +211,9 @@ public class CommentSelenium {
                             logger.info("likeCommentBtns 총갯수 : " + likeCommentBtns.size());
                             for(WebElement likeCommentBtn : likeCommentBtns){
                                 actions.moveToElement(likeCommentBtn).perform();
-                                Thread.sleep(2500);
+                                Thread.sleep(2000);
                                 likeCommentBtn.sendKeys(Keys.ENTER,Keys.TAB);
-                                Thread.sleep(2500);
+                                Thread.sleep(2000);
                                 logger.info((likeCommentBtns.indexOf(likeCommentBtn) + 1) + "번째 좋아요버튼 클릭");
                                 logger.info("현재까지 좋아요 누른 갯수 : "+goodCnt+"개");
                                 goodCnt++;
