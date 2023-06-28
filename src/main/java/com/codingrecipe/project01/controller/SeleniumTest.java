@@ -11,7 +11,9 @@ import org.slf4j.LoggerFactory;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
@@ -154,6 +156,8 @@ public class SeleniumTest {
                 String dataModel = element.getAttribute("data-model");
                 dataModelValues.add(dataModel.replace(".","/"));
             }
+
+            Collections.reverse(dataModelValues);
 
             log.info("dataModelValues.size: " + dataModelValues.size());
 
